@@ -5,9 +5,9 @@ import plotly.graph_objects as go
 import plotly.io as pio
 import pandas as pd
 from colorcet import rainbow4, CET_D8, CET_CBTL2, CET_L19, CET_CBL4, CET_CBL1
-from Mapa_reconquista.rastim import process_raster, get_mapbox_layer
-import dash_bootstrap_components as dbc
-from dash_bootstrap_templates import load_figure_template
+# from Mapa_reconquista.rastim import process_raster, get_mapbox_layer
+# import dash_bootstrap_components as dbc
+# from dash_bootstrap_templates import load_figure_template
 
 df = pd.read_csv(r"https://raw.githubusercontent.com/FranciscoGBianco/Reconquista_Map/main/data/sitios.csv")
 
