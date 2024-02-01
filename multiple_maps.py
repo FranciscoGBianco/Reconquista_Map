@@ -53,7 +53,7 @@ app = dash.Dash(
                 meta_tags=[{'name': 'viewport',
                             'content': 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'}]
                 )
-server = app.Server
+server = app.server
 # load_figure_template('SOLAR')
 
 token = "pk.eyJ1IjoicGFjb2diIiwiYSI6ImNsZjhoNGRiejBiY3Mzb212Nzltc25wMngifQ.RgGO-dUtLQc7yOpz2lvZDQ"
