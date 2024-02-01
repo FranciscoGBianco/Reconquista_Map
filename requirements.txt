@@ -2,5 +2,5 @@ dash==2.6.0
 plotly
 pandas
 gunicorn
-PIL
+PIL==8.2.1
 colorcet
