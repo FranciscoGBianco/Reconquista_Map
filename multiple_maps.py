@@ -9,7 +9,7 @@ from Mapa_reconquista.rastim import process_raster, get_mapbox_layer
 import dash_bootstrap_components as dbc
 from dash_bootstrap_templates import load_figure_template
 
-df = pd.read_csv(r"C:\Users\paco_\OneDrive\Escritorio\SIG 2023\Reconquista\Puntos\sitios.csv")
+df = pd.read_csv(r"https://raw.githubusercontent.com/FranciscoGBianco/Reconquista_Map/main/data/sitios.csv")
 
 # Usage example
 # raster_file_T = r"C:\Users\paco_\OneDrive\Escritorio\SIG 2023\Pythonproject\outputs\FinalT.tif"
@@ -34,11 +34,11 @@ CET_CBTL2.reverse()
 # layers = [mapbox_layer_pH, mapbox_layer_OD, mapbox_layer_EC, mapbox_layer_TDS, mapbox_layer_T]
 # print(mapbox_layer_OD)
 
-im_T = Image.open(r"C:\Users\paco_\OneDrive\Escritorio\Reconquista dashboard\T .tif")
-im_pH = Image.open(r"C:\Users\paco_\OneDrive\Escritorio\Reconquista dashboard\pH.tif")
-im_EC = Image.open(r"C:\Users\paco_\OneDrive\Escritorio\Reconquista dashboard\EC.tif")
-im_TDS = Image.open(r"C:\Users\paco_\OneDrive\Escritorio\Reconquista dashboard\TD.tif")
-im_OD = Image.open(r"C:\Users\paco_\OneDrive\Escritorio\Reconquista dashboard\OD.tif")
+im_T = Image.open(r"images/T .tif")
+im_pH = Image.open(r"images/pH.tif")
+im_EC = Image.open(r"images/EC.tif")
+im_TDS = Image.open(r"images/TD.tif")
+im_OD = Image.open(r"images/OD.tif")
 
 mapbox_layer_T = [{'below': 'traces', 'sourcetype': 'image', 'source': im_T, 'coordinates': [[-58.89950688274488, -34.38955324120631], [-58.57809083223908, -34.38955324120631], [-58.57809083223908, -34.70780133291272], [-58.89950688274488, -34.70780133291272]], 'opacity': 0.85}]
 mapbox_layer_pH = [{'below': 'traces', 'sourcetype': 'image', 'source': im_pH, 'coordinates': [[-58.89950688274488, -34.38955324120631], [-58.57809083223908, -34.38955324120631], [-58.57809083223908, -34.70780133291272], [-58.89950688274488, -34.70780133291272]], 'opacity': 0.85}]
@@ -53,6 +53,7 @@ app = dash.Dash(
                 meta_tags=[{'name': 'viewport',
                             'content': 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'}]
                 )
+server = app.Server
 # load_figure_template('SOLAR')
 
 token = "pk.eyJ1IjoicGFjb2diIiwiYSI6ImNsZjhoNGRiejBiY3Mzb212Nzltc25wMngifQ.RgGO-dUtLQc7yOpz2lvZDQ"
