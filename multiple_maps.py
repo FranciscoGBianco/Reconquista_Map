@@ -124,7 +124,7 @@ app.layout = html.Div([
     dcc.Graph(
         id='mapa',
         figure=map_figure,
-        style={"height": "95vh"},
+        style={"height": "92.5vh"},
     ),
 ])
 
