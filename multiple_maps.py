@@ -5,34 +5,10 @@ import plotly.graph_objects as go
 import plotly.io as pio
 import pandas as pd
 from colorcet import rainbow4, CET_D8, CET_CBTL2, CET_L19, CET_CBL4, CET_CBL1
-# from Mapa_reconquista.rastim import process_raster, get_mapbox_layer
-# import dash_bootstrap_components as dbc
-# from dash_bootstrap_templates import load_figure_template
 
 df = pd.read_csv(r"https://raw.githubusercontent.com/FranciscoGBianco/Reconquista_Map/main/data/sitios.csv")
 
-# Usage example
-# raster_file_T = r"C:\Users\paco_\OneDrive\Escritorio\SIG 2023\Pythonproject\outputs\FinalT.tif"
-# raster_file_pH = r"C:\Users\paco_\OneDrive\Escritorio\SIG 2023\Pythonproject\outputs\FinalpH.tif"
-# raster_file_EC = r"C:\Users\paco_\OneDrive\Escritorio\SIG 2023\Pythonproject\outputs\FinalEC.tif"
-# raster_file_TDS = r"C:\Users\paco_\OneDrive\Escritorio\SIG 2023\Pythonproject\outputs\FinalTDS.tif"
-# raster_file_OD = r"C:\Users\paco_\OneDrive\Escritorio\SIG 2023\Pythonproject\outputs\FinalOD.tif"
-# df_processed_T = process_raster(raster_file_T, "T (°C)")
-# df_processed_pH = process_raster(raster_file_pH, "pH (UpH)")
-# df_processed_EC = process_raster(raster_file_EC, "EC (µS/cm)")
-# df_processed_TDS = process_raster(raster_file_TDS, "TDS (mg/L)")
-# df_processed_OD = process_raster(raster_file_OD, "OD (%)")
-# # df_processed_OD.head().to_excel('df_processed_OD.xlsx')
-#
 CET_CBTL2.reverse()
-# # Usage example
-# mapbox_layer_T = get_mapbox_layer(df_processed_T, cmap_col=CET_CBTL2, name="T (°C)", span_range=[10, 40], save=True)
-# mapbox_layer_pH = get_mapbox_layer(df_processed_pH, cmap_col=rainbow4, name="pH (UpH)", span_range=[0, 14], save=True)
-# mapbox_layer_EC = get_mapbox_layer(df_processed_EC, cmap_col=rainbow4, name="EC (µS/cm)", span_range=[0, 3000], save=True)
-# mapbox_layer_TDS = get_mapbox_layer(df_processed_TDS, cmap_col=CET_CBL1, name="TDS (mg/L)", span_range=[0, 2000], save=True)
-# mapbox_layer_OD = get_mapbox_layer(df_processed_OD, cmap_col=CET_CBL4, name="OD (%)", span_range=[0, 100], save=True)
-# layers = [mapbox_layer_pH, mapbox_layer_OD, mapbox_layer_EC, mapbox_layer_TDS, mapbox_layer_T]
-# print(mapbox_layer_OD)
 
 im_T = Image.open(r"images/T .tif")
 im_pH = Image.open(r"images/pH.tif")
@@ -45,7 +21,6 @@ mapbox_layer_pH = [{'below': 'traces', 'sourcetype': 'image', 'source': im_pH, '
 mapbox_layer_EC = [{'below': 'traces', 'sourcetype': 'image', 'source': im_EC, 'coordinates': [[-58.89950688274488, -34.38955324120631], [-58.57809083223908, -34.38955324120631], [-58.57809083223908, -34.70780133291272], [-58.89950688274488, -34.70780133291272]], 'opacity': 0.85}]
 mapbox_layer_TDS = [{'below': 'traces', 'sourcetype': 'image', 'source': im_TDS, 'coordinates': [[-58.89950688274488, -34.38955324120631], [-58.57809083223908, -34.38955324120631], [-58.57809083223908, -34.70780133291272], [-58.89950688274488, -34.70780133291272]], 'opacity': 0.85}]
 mapbox_layer_OD = [{'below': 'traces', 'sourcetype': 'image', 'source': im_OD, 'coordinates': [[-58.89950688274488, -34.38955324120631], [-58.57809083223908, -34.38955324120631], [-58.57809083223908, -34.70780133291272], [-58.89950688274488, -34.70780133291272]], 'opacity': 0.85}]
-# [{'below': 'traces', 'sourcetype': 'image', 'source': <PIL.Image.Image image mode=RGBA size=3200x2000 at 0x1F281CF88E0>, 'coordinates': [[-58.89950688274488, -34.38955324120631], [-58.57809083223908, -34.38955324120631], [-58.57809083223908, -34.70780133291272], [-58.89950688274488, -34.70780133291272]], 'opacity': 0.85}]
 
 # Create the Dash app
 # app = dash.Dash(__name__)
@@ -53,8 +28,9 @@ app = dash.Dash(
                 meta_tags=[{'name': 'viewport',
                             'content': 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'}]
                 )
+
+# Create the server
 server = app.server
-# load_figure_template('SOLAR')
 
 token = "pk.eyJ1IjoicGFjb2diIiwiYSI6ImNsZjhoNGRiejBiY3Mzb212Nzltc25wMngifQ.RgGO-dUtLQc7yOpz2lvZDQ"
 
@@ -64,13 +40,10 @@ map_figure.update_layout(
   mapbox_accesstoken=token,
   mapbox_style="light",
   mapbox_zoom=10,
-  # mapbox_layers=mapbox_layer_OD,
   modebar={'add': "togglehover"},
   showlegend=False,
   autosize=True,
-  # showscale=True,
   mapbox_center=go.layout.mapbox.Center(lat=-34.568168, lon=-58.654091)
-  # taken from previous step
 )
 cbar = go.Scattermapbox(
             lat=[-34.568168],
@@ -81,13 +54,11 @@ cbar = go.Scattermapbox(
                 size=0,
                 showscale=True,
                 colorscale=rainbow4,
-                # colorbar={'title':'T (°C)', 'bgcolor': 'rgba(255,255,255,0.5)', 'bordercolor':'rgba(0,0,0,0)', 'len':0.6, 'lenmode':'fraction','x':0.95, 'y':0.6},
                 colorbar={'title':'OD (%)','orientation':'h', 'bgcolor': 'rgba(255,255,255,0.5)', 'bordercolor':'rgba(0,0,0,0)', 'len':0.6, 'lenmode':'fraction','x':0.5, 'y':0.01},
                 cmin=0,
                 cmax=100
             )
 )
-# map_figure.add_trace(cbar)
 
 for i in range(len(df['lat'])):
     label = f"Sitio: {df['sitio'][i]}"
@@ -104,12 +75,11 @@ for i in range(len(df['lat'])):
         textposition="bottom right",
         hoverlabel={'bgcolor':'dimgray'},
         hovertemplate=label,
-        # mapbox_style='carto-positron'
     )
     )
+  
 # Define the layout
 app.layout = html.Div([
-    # html.P('Ultima actualización: 17/12'),
     dcc.Dropdown(id='parametro',
         # options=['pH', 'Oxígeno Disuelto', 'Conductividad', 'Solidos Disueltos Totales', 'Temperatura']
         options=[
@@ -147,9 +117,7 @@ def update_param(param):
         modebar={'add': "togglehover"},
         showlegend=False,
         autosize=True,
-        # showscale=True,
         mapbox_center=go.layout.mapbox.Center(lat=-34.568168, lon=-58.654091)
-        # taken from previous step
     )
 
     cbar = go.Scattermapbox(
@@ -161,13 +129,13 @@ def update_param(param):
             size=0,
             showscale=True,
             colorscale=cbars[param],
-            # colorbar={'title':'T (°C)', 'bgcolor': 'rgba(255,255,255,0.5)', 'bordercolor':'rgba(0,0,0,0)', 'len':0.6, 'lenmode':'fraction','x':0.95, 'y':0.6},
             colorbar={'title': f'{param} ({units[param]})', 'orientation': 'h', 'bgcolor': 'rgba(255,255,255,0.5)',
                       'bordercolor': 'rgba(0,0,0,0)', 'len': 0.6, 'lenmode': 'fraction', 'x': 0.5, 'y': 0.01},
             cmin=limits_down[param],
             cmax=limits_up[param]
         )
     )
+  
     if param is not None:
         fig.add_trace(cbar)
 
@@ -189,11 +157,9 @@ def update_param(param):
             textposition="bottom right",
             hoverlabel={'bgcolor': 'dimgray'},
             hovertemplate=label,
-            # mapbox_style='carto-positron'
         )
         )
 
-    # fig.write_html(f'{param}.html')
     return fig
 
 
